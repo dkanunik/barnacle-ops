@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: barnacle-front
+  labels:
+    app: barnacle-front
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 4200
+    nodePort: 30002
+  selector:
+    app: barnacle-front
