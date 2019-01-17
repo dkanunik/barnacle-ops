@@ -31,12 +31,15 @@ To remove a tag from an image:
 $ docker rmi <IMAGE>:<VERSION>
 ```
 
+#### Remove image
+```
+$ docker rmi <IMAGE_ID>
+```
 
 #### Push image:
 ```
 $ docker push dkanunik/barnacle-front:latest
 ```
-
 
 #### Run containers via docker-compose.yml
 
