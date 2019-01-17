@@ -37,16 +37,16 @@ $ docker build -t 172.30.1.1:5000/barnacle/barnacle-back:latest .
 ##### Tag image:
 To mark the image with a tag:
 ```
-$ docker tag <IMAGE_ID> $(minishift openshift registry)/<PROJECT_NAME>/<IMAGE_NAME>
+$ docker tag <IMAGE_ID> $(minishift openshift registry)/<PROJECT_NAME>/<IMAGE_NAME>:<TAG>
 ```
+Example:
+```
+$ docker tag 062702776e92  $(minishift openshift registry)/barnacle/barnacle-front:latest
+```
+
 To remove a tag from an image:
 ```
 $ docker rmi <IMAGE>:<VERSION>
-```
-
-Example:
-```
-$ docker tag 062702776e92  $(minishift openshift registry)/barnacle/barnacle-front
 ```
 
 ##### Push image:

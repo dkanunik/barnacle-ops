@@ -1,3 +1,98 @@
+#### Build images
+
+Dockerfile:
+```
+FROM node:8
+WORKDIR /barnacle
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+EXPOSE 4201
+CMD [ "npm", "run", "front:start" ]
+```
+
+Building:
+```
+$ docker build -t dkanunik/barnacle-front:latest .
+```
+
+#### Image tags
+To mark the image with a tag:
+```
+$ docker tag <IMAGE_ID> <PROJECT_NAME>/<IMAGE_NAME>:<TAG>
+```
+Example:
+```
+$ docker tag 062702776e92  dkanunik/barnacle-front:latest
+```
+To remove a tag from an image:
+```
+$ docker rmi <IMAGE>:<VERSION>
+```
+
+
+#### Push image:
+```
+$ docker push dkanunik/barnacle-front:latest
+```
+
+
+#### Run containers via docker-compose.yml
+
+YML-file:
+```
+back:
+  container_name: back
+  image: dkanunik/barnacle-front:last
+  ports:
+    - "3000:3000"
+  environment:
+    - MONGO_HOST=$MONGO_HOST
+  networks:
+    - dev-net
+  depends_on:
+    - mongo
+
+front:
+  container_name: front
+  dkanunik/barnacle-front:last
+  ports:
+    - "4201:4201"
+  networks:
+    - dev-net
+  depends_on:
+    - back
+```
+To start build and start containers:
+```
+docker-compose -f docker/docker-compose.yml up -d
+```
+
+#### Remove data
+```
+#!/bin/bash
+
+# Stop all containers
+containers=`docker ps -a -q`
+if [ -n "$containers" ] ; then
+        docker stop $containers
+fi
+
+# Delete all containers
+containers=`docker ps -a -q`
+if [ -n "$containers" ]; then
+        docker rm -f -v $containers
+fi
+
+# Delete all images
+images=`docker images --filter "dangling=true" -q --no-trunc`
+if [ -n "$images" ]; then
+        docker rmi -f $images
+fi
+```
+
+
 #### Save image
 ```
 $ docker build -t dkanunik/barnacle-front:latest .
