@@ -112,3 +112,8 @@ $ docker images
 REPOSITORY                                 TAG                 IMAGE ID          
 dkanunik/barnacle-front                 latest              80cb2045f41b         
 ```
+
+##### Container IP getting
+```
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <id>
+```
