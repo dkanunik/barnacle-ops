@@ -12,6 +12,6 @@ docker run \
 ```
 [Manual](https://jenkins.io/doc/book/installing/)
 
-##### Required plugins
+#### Required plugins
 * https://plugins.jenkins.io/nodejs
 * https://plugins.jenkins.io/docker-plugin

@@ -1,4 +1,4 @@
-##### SSH Keys creation
+#### SSH Keys creation
 ```
 $ docker exec -it <CONTAINER_ID> /bin/bash
 
@@ -25,7 +25,7 @@ $ cat id_rsa
 
 ```
 
-##### Using credentials via env variables
+#### Using credentials via env variables
 ```
 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"

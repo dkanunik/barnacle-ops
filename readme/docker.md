@@ -113,7 +113,25 @@ REPOSITORY                                 TAG                 IMAGE ID
 dkanunik/barnacle-front                 latest              80cb2045f41b         
 ```
 
-##### Container IP getting
+#### Container IP getting
 ```
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <id>
+```
+
+#### Resource cleaning
+Stop containers:
+```
+docker stop $(docker ps -a -q)
+```
+Remove containers:
+```
+docker rm $(docker ps -a -q)
+```
+Remove images:
+```
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+```
+Remove volumes:
+```
+docker volume rm $(docker volume ls -qf dangling=true)
 ```
