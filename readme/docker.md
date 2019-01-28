@@ -72,30 +72,6 @@ To start build and start containers:
 docker-compose -f docker/docker-compose.yml up -d
 ```
 
-#### Remove data
-```
-#!/bin/bash
-
-# Stop all containers
-containers=`docker ps -a -q`
-if [ -n "$containers" ] ; then
-        docker stop $containers
-fi
-
-# Delete all containers
-containers=`docker ps -a -q`
-if [ -n "$containers" ]; then
-        docker rm -f -v $containers
-fi
-
-# Delete all images
-images=`docker images --filter "dangling=true" -q --no-trunc`
-if [ -n "$images" ]; then
-        docker rmi -f $images
-fi
-```
-
-
 #### Save image
 ```
 $ docker build -t dkanunik/barnacle-front:latest .
@@ -118,7 +94,7 @@ dkanunik/barnacle-front                 latest              80cb2045f41b
 docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <id>
 ```
 
-#### Resource cleaning
+#### Resource cleaning (CLI)
 Stop containers:
 ```
 docker stop $(docker ps -a -q)
@@ -134,4 +110,27 @@ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 Remove volumes:
 ```
 docker volume rm $(docker volume ls -qf dangling=true)
+```
+
+#### Resource cleaning (Shell)
+```
+#!/bin/bash
+
+# Stop all containers
+containers=`docker ps -a -q`
+if [ -n "$containers" ] ; then
+        docker stop $containers
+fi
+
+# Delete all containers
+containers=`docker ps -a -q`
+if [ -n "$containers" ]; then
+        docker rm -f -v $containers
+fi
+
+# Delete all images
+images=`docker images --filter "dangling=true" -q --no-trunc`
+if [ -n "$images" ]; then
+        docker rmi -f $images
+fi
 ```
